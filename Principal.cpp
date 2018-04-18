@@ -46,11 +46,10 @@ template<class t> int Insercion(Vector<t> v, int n, int mostrar) {
         }
       
         v[j] = aux;
-            if (mostrar == 0) {
+        if (mostrar == 0) {
             v.mostrarVector();
             cout << "Se puso " << v[j].numeroDNI() << " en la posicion " << j << endl;
         }
-         
     }
     return comparaciones;
 }
@@ -82,7 +81,7 @@ template<class t> int Burbuja(Vector<t> v, int n, int mostrar) {
 }
 
 /***************************    HeapSort    ***************************/
-template<class t> void baja(int i, Vector<t> v, int n, int &comparaciones) {
+template<class t> void baja(int i, Vector<t> v, int n, int &comparaciones, int mostrar) {
     int h1;
     int h2;
     int h;
@@ -109,6 +108,10 @@ template<class t> void baja(int i, Vector<t> v, int n, int &comparaciones) {
             comparaciones++;
             v[i] = v[h];
             v[h] = aux ;
+            if (mostrar == 0) {
+                v.mostrarVector();
+                cout << "Se intercambiaron " << v[i].numeroDNI() << " y " << v[h].numeroDNI() << endl;
+            }
             i = h ;
         }
     }
@@ -117,17 +120,14 @@ template<class t> void baja(int i, Vector<t> v, int n, int &comparaciones) {
 template<class t> int HeapSort(Vector<t> v, int n, int mostrar) {
     int comparaciones = 0;
     for (int i = n/2; i > 0; i--) {
-        baja(i, v, n, comparaciones);
+        baja(i, v, n, comparaciones, mostrar);
     }
     for (int i = n-1; i > 0; i--) {
         DNI aux;
         aux = v[0];
         v[0] = v[i];
         v[i] = aux;
-        baja(0,v,i-1, comparaciones);
-    }
-    if (mostrar == 0) {
-        v.mostrarVector();
+        baja(0,v,i-1, comparaciones, mostrar);
     }
     return comparaciones;
 } 
@@ -153,8 +153,13 @@ template<class t> void QuickSort(Vector<t> v, int ini, int fin, int mostrar, int
             aux = v[i];
             v[i] = v[f];
             v[f] = aux;
+            if (mostrar == 0) {
+                v.mostrarVector();
+                cout << "Se intercambiaron " << v[i].numeroDNI() << " y " << v[f].numeroDNI() << endl;
+            }
             i++; 
             f--;
+            
         }
     }
     if (ini < f) {
@@ -178,12 +183,14 @@ template<class t> void deltasort(int delta, Vector<t> v, int n, int mostrar, int
         while ((j >= delta) && (aux < v[j - delta])) {
             comparaciones++;
             v[j] = v[j - delta];
+            if (mostrar == 0) {
+                v.mostrarVector();
+                cout << "Se rodo " << v[j].numeroDNI() << " desde " << j << " hasta " << j - delta << endl;
+            }
             j = j - delta;
         }
         v[j] = aux;
-        if (mostrar == 0) {
-            v.mostrarVector();
-        }
+        
     }
 }
 
